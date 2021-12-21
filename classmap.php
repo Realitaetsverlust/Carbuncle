@@ -10,8 +10,7 @@ require_once "Classes/StreamWriter.class.php";
 
 require_once "Commands/BaseCommand.php";
 require_once "Commands/CommandInterface.php";
-require_once "Commands/ListVersions.php";
-require_once "Commands/Releases.php";
-require_once "Commands/Install.php";
-require_once "Commands/Remove.php";
+require_once "Commands/ReleasesManager.php";
 require_once "Commands/RepoManager.php";
+require_once "Commands/VersionManager.php";
+require_once "Commands/CacheManager.php";

@@ -1,12 +1,6 @@
 {
-  "lsr": "ListRepos",
-  "list-versions": "ListVersions",
-  "listversions": "ListVersions",
-  "lsv": "ListVersions",
-  "releases": "Releases",
-  "install": "Install",
-  "i": "Install",
-  "r": "Remove",
-  "remove": "Remove",
-  "repo": "RepoManager"
+  "releases": "ReleasesManager",
+  "repo": "RepoManager",
+  "version": "VersionManager",
+  "cache": "CacheManager"
 }

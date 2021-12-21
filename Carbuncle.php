@@ -17,11 +17,13 @@ class Carbuncle {
 
         $arguments = $argv;
         unset($arguments[0], $arguments[1]);
+
+        // TODO: Display help if no argument is given
+
         // resetting the keys
         $arguments = array_values($arguments);
 
         $className = "\\Realitaetsverlust\\Carbuncle\\" . AliasMapper::getClassForAlias($command);
-        // TODO: Make repo variable
         $classToCall = new $className(Config::getCurrentRepo());
         $classToCall->exec($arguments);
     }

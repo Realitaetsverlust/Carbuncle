@@ -14,7 +14,11 @@ class ProtonRepo implements Iterator {
 
     private int $position = 0;
 
-    public function __construct(private string $activeRepo) {
+    public function __construct(private string $activeRepo = "") {
+        if($this->activeRepo === "") {
+            $this->activeRepo = Config::getCurrentRepo();
+        }
+
         $repo = str_replace('~', $_SERVER['HOME'], Config::fetchRepositories()->{$this->activeRepo});
         $this->repoPath = $repo;
         $directory = new DirectoryIterator($repo);
@@ -25,6 +29,7 @@ class ProtonRepo implements Iterator {
                 continue;
             }
 
+            // TODO: Validate if folder is actually a proton folder and not something else
             $protonVersion = new Proton($id, $file->getFilename(), $file->getMTime(), $repo . '/' . $file);
             $this->addVersionToRepo($protonVersion);
             $id++;

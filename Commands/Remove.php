@@ -11,7 +11,7 @@ use PharData;
 class Remove extends BaseCommand implements CommandInterface {
     public function exec(array $arguments = []) {
         $id = readline("Which version would you like to install (ID via 'carbuncle list-versions'): ");
-        $repo = new ProtonRepo($this->activeRepo);
+        $repo = new ProtonRepo();
         if (!$repo->removeVersionFromFilesystem($id)) {
             StreamWriter::write('Removal of given version failed');
             exit();

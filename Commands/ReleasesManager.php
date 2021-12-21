@@ -7,22 +7,25 @@ use CommandInterface;
 /**
  * Releases command. Displays all releases available
  */
-class Releases extends BaseCommand implements CommandInterface {
+class ReleasesManager extends BaseCommand implements CommandInterface {
     public function exec(array $arguments = []) : void {
-        if(empty($arguments)) {
-            $data = Api::fetchData();
-            // TODO: Move table representation to StreamWriter
-            $this->displayReleasesAsTable($data);
-        } elseif($arguments[0] === 'latest') {
-            $data = Api::fetchLatestVersion();
-            // TODO: Display detailed information about latest version
+        switch($arguments[0]) {
+            case 'list':
+                $data = Api::fetchData();
+                // TODO: Move table representation to StreamWriter
+                $this->displayReleasesAsTable($data);
+                StreamWriter::write("Cache cleared successfully!");
+                break;
+            default:
+                StreamWriter::write("The command \"{$arguments[0]}\" does not exist!");
+                break;
         }
     }
 
     private function displayReleasesAsTable(array $releases) : void {
         $maxNameLength = 0;
         $releaseCountLength = ($length = strlen(count($releases))) < 3 ? 3 : $length;
-        $protonRepo = new ProtonRepo($this->activeRepo);
+        $protonRepo = new ProtonRepo();
         foreach($releases as $version) {
             $maxNameLength = max(strlen($version->name), $maxNameLength);
         }

@@ -33,16 +33,28 @@ class Config {
     }
 
     public static function addRepo(string $repoName, string $repoPath) : void {
+        if(!file_exists($repoPath)) {
+            StreamWriter::write("The path \"{$repoPath}\" does not exist!");
+            exit();
+        }
+
         self::$config->protonRepos->$repoName = $repoPath;
         self::saveAndReloadConfig();
+        StreamWriter::write("Sucessfully added repository with name \"{$repoName}\".");
     }
 
     public static function removeRepo(string $repoName) : void {
         unset(self::$config->protonRepos->$repoName);
         self::saveAndReloadConfig();
+        StreamWriter::write("Sucessfully removed repository with name \"{$repoName}\".");
     }
 
     public static function setCurrentRepo(string $repoName) {
+        if(!isset(self::$config->protonRepos->$repoName)) {
+            StreamWriter::write("The repository \"{$repoName}\" does not exist!");
+            exit();
+        }
+
         self::$config->currentRepo = $repoName;
         self::saveAndReloadConfig();
     }

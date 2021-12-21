@@ -9,7 +9,7 @@ use CommandInterface;
  */
 class ListVersions extends BaseCommand implements CommandInterface {
     public function exec(array $arguments = []) : void {
-        $protonRepo = new ProtonRepo($this->activeRepo);
+        $protonRepo = new ProtonRepo();
         // TODO: Move table representation to StreamWriter
         $this->displayVersionsAsTable($protonRepo);
     }

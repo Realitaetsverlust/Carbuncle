@@ -8,16 +8,24 @@ class RepoManager extends BaseCommand implements CommandInterface {
     public function exec(array $arguments = []) {
         switch($arguments[0]) {
             case 'add':
+                if(@!$arguments[2]) {
+                    StreamWriter::write("No repository name was given!");
+                    exit();
+                }
                 Config::addRepo($arguments[1], $arguments[2]);
                 break;
             case 'remove':
                 Config::removeRepo($arguments[1]);
                 break;
-            case 'show':
+            case 'list':
                 $this->showRepos();
                 break;
-            case 'set':
+            case 'use':
                 Config::setCurrentRepo($arguments[1]);
+                StreamWriter::write("Switched active repo to {$arguments[1]}");
+                break;
+            default:
+                StreamWriter::write("The command \"{$arguments[0]}\" does not exist");
                 break;
         }
     }
