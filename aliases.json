@@ -1,0 +1,13 @@
+{
+  "list-repos": "ListRepos",
+  "listrepos": "ListRepos",
+  "lsr": "ListRepos",
+  "list-versions": "ListVersions",
+  "listversions": "ListVersions",
+  "lsv": "ListVersions",
+  "releases": "Releases",
+  "install": "Install",
+  "i": "Install",
+  "r": "Remove",
+  "remove": "Remove"
+}
