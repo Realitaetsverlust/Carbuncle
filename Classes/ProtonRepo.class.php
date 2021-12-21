@@ -29,7 +29,11 @@ class ProtonRepo implements Iterator {
                 continue;
             }
 
-            // TODO: Validate if folder is actually a proton folder and not something else
+            // Check if the file "proton" exists in the folder. If not, it's probably not a proton version and should be ignored
+            if(!file_exists($repo . '/' . $file . '/' . 'proton')) {
+                continue;
+            }
+
             $protonVersion = new Proton($id, $file->getFilename(), $file->getMTime(), $repo . '/' . $file);
             $this->addVersionToRepo($protonVersion);
             $id++;
