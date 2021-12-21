@@ -22,7 +22,7 @@ class Carbuncle {
 
         $className = "\\Realitaetsverlust\\Carbuncle\\" . AliasMapper::getClassForAlias($command);
         // TODO: Make repo variable
-        $classToCall = new $className("steam");
+        $classToCall = new $className(Config::getCurrentRepo());
         $classToCall->exec($arguments);
     }
 }

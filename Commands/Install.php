@@ -54,6 +54,7 @@ class Install extends BaseCommand implements CommandInterface {
         StreamWriter::write("Cleaning up archive");
 
         unlink($archivePath);
+        unlink("/tmp/{$name}.tar");
 
         return true;
     }

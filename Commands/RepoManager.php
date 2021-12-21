@@ -4,14 +4,31 @@ namespace Realitaetsverlust\Carbuncle;
 
 use CommandInterface;
 
-/**
- * ListRepos command. Shows all configured repositories.
- */
-class ListRepos extends BaseCommand implements CommandInterface {
-    public function exec(array $arguments = []) : void {
+class RepoManager extends BaseCommand implements CommandInterface {
+    public function exec(array $arguments = []) {
+        switch($arguments[0]) {
+            case 'add':
+                Config::addRepo($arguments[1], $arguments[2]);
+                break;
+            case 'remove':
+                Config::removeRepo($arguments[1]);
+                break;
+            case 'show':
+                $this->showRepos();
+                break;
+            case 'set':
+                Config::setCurrentRepo($arguments[1]);
+                break;
+        }
+    }
+
+    private function showRepos(array $arguments = []) : void {
         $repos = Config::fetchRepositories();
 
         // TODO: Move table representation to StreamWriter
+
+        $usedRepo = Config::getCurrentRepo();
+        $output = "\nYou are currently using the \"{$usedRepo}\" repository\n\n";
 
         $maxIdLength = 0;
         $maxRepoPathLength = 0;
@@ -35,7 +52,7 @@ class ListRepos extends BaseCommand implements CommandInterface {
         $headlinePathElement = str_pad("Path:", $maxRepoPathLength, " ", STR_PAD_RIGHT);
         $headline = "| {$headlineIdElement} | {$headlinePathElement} |\n";
 
-        $output = $tableSeperator . $headline . $tableSeperator . implode($lines) . $tableSeperator;
+        $output .= $tableSeperator . $headline . $tableSeperator . implode($lines) . $tableSeperator;
 
         fwrite(STDOUT, $output . PHP_EOL);
     }

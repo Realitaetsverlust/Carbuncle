@@ -1,6 +1,4 @@
 {
-  "list-repos": "ListRepos",
-  "listrepos": "ListRepos",
   "lsr": "ListRepos",
   "list-versions": "ListVersions",
   "listversions": "ListVersions",
@@ -9,5 +7,6 @@
   "install": "Install",
   "i": "Install",
   "r": "Remove",
-  "remove": "Remove"
+  "remove": "Remove",
+  "repo": "RepoManager"
 }
