@@ -79,9 +79,38 @@ class VersionManager extends BaseCommand implements CommandInterface {
             )
         ));
 
-        // TODO: Some kind of loading bar or progress spinner
-        file_put_contents($archivePath, file_get_contents($downloadUrl, false, $context));
-        StreamWriter::write("Download successful.");
+        $fileHandle = fopen($archivePath, "w");
+        $curl = curl_init($downloadUrl);
+
+        curl_setopt($curl, CURLOPT_USERAGENT, "Realitaetsverlust/Carbuncle");
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($curl,CURLOPT_NOPROGRESS, false);
+        curl_setopt($curl,CURLOPT_PROGRESSFUNCTION, function($resource, $downloadSize, $downloadedSize, $uploadSize, $uploadedSize) {
+            if($downloadSize <= 10000) {
+                $percentage = 0;
+            } else {
+                $percentage = $downloadedSize / $downloadSize * 100;
+            }
+
+            // TODO: Make this variable for every terminal
+            $terminalWidth = 100;
+
+            $totalSizeMb = number_format(round($downloadSize / 1024 / 1024, 2), 2, '.', '');
+            $curSizeMb = number_format(round($downloadedSize / 1024 / 1024, 2), 2, '.', '');
+            $roundedPercent = number_format(round($percentage, 2), 2, '.', '');
+
+            $loadingBar = str_pad('', $terminalWidth / 100 * $percentage, '=') . '>';
+            $loadingBar = str_pad($loadingBar, $terminalWidth);
+
+            $output = "{$curSizeMb}MB {$loadingBar} ($roundedPercent%) {$totalSizeMb}MB";
+
+            echo $output . "\r";
+        });
+        curl_setopt($curl,CURLOPT_FILE, $fileHandle);
+        curl_exec($curl);
+
+        StreamWriter::write("\n\nDownload successful.");
 
         $repo = new ProtonRepo();
         StreamWriter::write("Extracting archive to {$repo->getRepoPath()}.");
