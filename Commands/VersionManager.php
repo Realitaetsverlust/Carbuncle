@@ -71,17 +71,8 @@ class VersionManager extends BaseCommand implements CommandInterface {
 
         $archivePath = "/tmp/{$name}.tar.gz";
 
-        $context = stream_context_create(array(
-            'http'=>array(
-                'method'=>"GET",
-                'header'=>"Accept-language: en\r\n" .
-                    "User-Agent: Realitaetsverlust/Carbuncle" // Github expects a user agent, no matter what it contains
-            )
-        ));
-
         $fileHandle = fopen($archivePath, "w");
         $curl = curl_init($downloadUrl);
-
         curl_setopt($curl, CURLOPT_USERAGENT, "Realitaetsverlust/Carbuncle");
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
