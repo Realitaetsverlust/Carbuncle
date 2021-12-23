@@ -23,7 +23,25 @@ class Carbuncle {
         // resetting the keys
         $arguments = array_values($arguments);
 
-        $className = "\\Realitaetsverlust\\Carbuncle\\" . AliasMapper::getClassForAlias($command);
+        switch($command) {
+            case 'repo':
+                $className = 'RepoManager';
+                break;
+            case 'version':
+                $className = 'VersionManager';
+                break;
+            case 'cache':
+                $className = 'CacheManager';
+                break;
+            case 'releases':
+                $className = "ReleasesManager";
+                break;
+            default:
+                StreamWriter::write("The command '{$command}' does not exist");
+                exit();
+        }
+
+        $className = "\\Realitaetsverlust\\Carbuncle\\" . $className;
         $classToCall = new $className(Config::getCurrentRepo());
         $classToCall->exec($arguments);
     }

@@ -2,7 +2,6 @@
 
 require_once "Carbuncle.php";
 require_once "Classes/Config.class.php";
-require_once "Classes/AliasMapper.class.php";
 require_once "Classes/Proton.class.php";
 require_once "Classes/ProtonRepo.class.php";
 require_once "Classes/Api.class.php";

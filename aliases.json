@@ -1,6 +1,0 @@
-{
-  "releases": "ReleasesManager",
-  "repo": "RepoManager",
-  "version": "VersionManager",
-  "cache": "CacheManager"
-}
