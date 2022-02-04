@@ -19,6 +19,9 @@ I chose PHP because it's fast and I'm very familiar with it. I wrote this applic
 
 If you don't want to use it because of PHP, that's fine. You might want to take a look at protonup, which is written in python.
 
+## Why is it called "Carbuncle"?
+I recently switched to a naming scheme where I name all my projects after final fantasy summons. If you wanna google for "Carbuncle", do yourself a favor and look for "final fantasy carbuncle" to save yourself from unpleasant surprises.
+
 ## Usage:
 
 ### Display all releases:
