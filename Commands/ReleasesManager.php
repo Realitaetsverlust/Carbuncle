@@ -14,7 +14,6 @@ class ReleasesManager extends BaseCommand implements CommandInterface {
                 $data = Api::fetchData();
                 // TODO: Move table representation to StreamWriter
                 $this->displayReleasesAsTable($data);
-                StreamWriter::write("Cache cleared successfully!");
                 break;
             default:
                 StreamWriter::write("The command \"{$arguments[0]}\" does not exist!");

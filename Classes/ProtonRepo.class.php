@@ -40,7 +40,7 @@ class ProtonRepo implements Iterator {
         }
     }
 
-    private function addVersionToRepo(Proton $proton) {
+    private function addVersionToRepo(Proton $proton) : void {
         $this->repos[] = $proton;
     }
 
@@ -63,8 +63,12 @@ class ProtonRepo implements Iterator {
     }
 
     // TODO: Do this you lazy fuck
-    public function isVersionInstalled(string $versionName) {
-        return true;
+    public function isVersionInstalled(string $versionName) : bool {
+        if(is_dir($this->repoPath . '/' . $versionName)) {
+            return true;
+        }
+
+        return false;
     }
 
     public function getRepoPath() : string {
@@ -72,27 +76,27 @@ class ProtonRepo implements Iterator {
     }
 
     //region Iterator-Methods
-    public function current()
+    public function current() : mixed
     {
         return $this->repos[$this->position];
     }
 
-    public function next()
+    public function next() : void
     {
         $this->position++;
     }
 
-    public function key()
+    public function key() : mixed
     {
         return $this->position;
     }
 
-    public function valid()
+    public function valid() : bool
     {
         return isset($this->repos[$this->position]);
     }
 
-    public function rewind()
+    public function rewind() : void
     {
         $this->position = 0;
     }

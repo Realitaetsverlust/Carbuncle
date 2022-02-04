@@ -78,6 +78,7 @@ class VersionManager extends BaseCommand implements CommandInterface {
         curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
         curl_setopt($curl,CURLOPT_NOPROGRESS, false);
         curl_setopt($curl,CURLOPT_PROGRESSFUNCTION, function($resource, $downloadSize, $downloadedSize, $uploadSize, $uploadedSize) {
+            // ugly hack to avoid messy terminal displays
             if($downloadSize <= 10000) {
                 $percentage = 0;
             } else {
@@ -91,7 +92,7 @@ class VersionManager extends BaseCommand implements CommandInterface {
             $curSizeMb = number_format(round($downloadedSize / 1024 / 1024, 2), 2, '.', '');
             $roundedPercent = number_format(round($percentage, 2), 2, '.', '');
 
-            $loadingBar = str_pad('', $terminalWidth / 100 * $percentage, '=') . '>';
+            $loadingBar = @str_pad('', $terminalWidth / 100 * $percentage, '=') . '>';
             $loadingBar = str_pad($loadingBar, $terminalWidth);
 
             $output = "{$curSizeMb}MB {$loadingBar} ($roundedPercent%) {$totalSizeMb}MB";
@@ -116,10 +117,12 @@ class VersionManager extends BaseCommand implements CommandInterface {
             exit();
         }
 
-        StreamWriter::write("Cleaning up archive");
+        StreamWriter::write("Extraction successful. Cleaning up archive");
 
         unlink($archivePath);
         unlink("/tmp/{$name}.tar");
+
+        StreamWriter::write("Proton version $name successfully installed.");
     }
 
     private function removeVersion() : void {
