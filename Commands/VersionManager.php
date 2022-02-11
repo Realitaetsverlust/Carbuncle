@@ -4,6 +4,7 @@ namespace Realitaetsverlust\Carbuncle;
 
 use PharData;
 use CommandInterface;
+use function readline;
 
 class VersionManager extends BaseCommand implements CommandInterface {
     public function exec(array $arguments = []) {
