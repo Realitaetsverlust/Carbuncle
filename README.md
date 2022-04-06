@@ -4,7 +4,10 @@ Carbuncle is a fast and reliable cli tool used to manage proton-GE versions. It 
 
 ## Requirements:
 - PHP 8 or greater
-- JSON-Extension and ZLIB-Extension (usually distributed by default)
+- JSON-Extension
+- ZLIB-Extension
+- cURL-Extension
+- Readline-Extension
 
 ## Installation
 - Clone the repository

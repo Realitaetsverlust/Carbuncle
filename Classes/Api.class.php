@@ -44,11 +44,6 @@ class Api {
         $apiData = [];
 
         foreach($data as $d) {
-            // Some entries do not have available assets as they were taken down by GE. Exclude those
-            // I will also always assume that he FIRST uploads the checksum and then the proton package, otherwise this
-            // will definitely break. Not the cleanest solution but I'm not quite sure how to solve this best with the
-            // data available. I could check if the package name contains ".sha512sum" but that would break aswell as soon
-            // as he uploads another file. I'm just hoping he's staying consistent here lmao.
             if(!isset($d->assets[1])) {
                 continue;
             }
